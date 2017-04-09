@@ -50,10 +50,29 @@ def calculate2(data):
         R[i] = R[i+1]+1
         MINMAX[i] = (min(L[i],R[i]), max(L[i],R[i]))
     #eprint('MINMAX', MINMAX)
-
-
   return "{} {}".format(x, y)
-  
+
+
+# new concept
+def calculate3(data):
+  data = data.split(' ')
+  N, K = int(data[0]), int(data[1])
+  if N == K:
+    return "0 0"
+  B = [N]
+  for k in range(K):
+    m = max(B) # find biggest gap
+    i = B.index(m) # find first occurence of gap
+            # split gap
+    if m%2 == 0:
+      g1, g2 = int(m/2)-1, int(m/2)
+    else:
+      g1, g2 = int(m/2), int(m/2) # notice, we are 'losing' 1 here
+    B[i] = g2
+    B.insert(i, g1)
+    eprint("%i %i"%(K, len(B)))
+  return "{} {}".format(g2, g1)
+
 
 def process_file(filename):
   data = []
@@ -63,7 +82,7 @@ def process_file(filename):
   i = 1
   while i <= count:
     #eprint(data[i])
-    result = calculate2(data[i])
+    result = calculate3(data[i])
     print("Case #{}: {}".format(i, result))
     eprint("Case #{}: {}".format(i, result))
     i += 1
@@ -71,9 +90,9 @@ def process_file(filename):
 
 def main():
   filename = 'C-my.in'
-  #filename = 'C-small-1-attempt0.in'
-  #filename = 'C-small-1-attempt1.in'
-  #filename = 'C-small-1-attempt2.in'
+  filename = 'C-small-1-attempt0.in'
+  filename = 'C-small-1-attempt1.in'
+  filename = 'C-small-1-attempt2.in'
   filename = 'C-small-2-attempt0.in'
   #filename = 'C-large.in'
   process_file(filename)
